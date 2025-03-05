@@ -1,0 +1,9 @@
+[submodule "KR260/UserSpace/lynx"]
+	path = KR260/UserSpace/lynx
+	url = https://github.com/design-gateway/lynx
+[submodule "KR260/UserSpace/openssl"]
+	path = KR260/UserSpace/openssl
+	url = https://github.com/design-gateway/openssl
+[submodule "KR260/Kernel/udmabuf"]
+	path = KR260/Kernel/udmabuf
+	url = https://github.com/design-gateway/udmabuf
