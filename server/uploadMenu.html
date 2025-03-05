@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Upload menu</h1>
+<p>choose your data pattern.</p>
+
+DataPattern  :
+<select name="pattern" id="pattern">
+	<option value="1">Increasing</option>
+	<option value="0">Decreasing</option>
+</select>
+<select name="dataType" id="dataType">
+	<option value="b">binary</option>
+	<option value="t">text</option>
+</select>
+<br><br>
+DataLength : <input name="DataLength" id="DataLength" value="5" onkeyup="limitLen()">
+byte(s)
+<br><br>
+
+<input type="file">
+<button type="submit">Submit</button> 
+
+<button onclick="myFunction()">POST</button>
+<p><a href="http://192.168.11.26:60002/upload/menu">Visit uploadMenu page!</a></p>
+<p id="demo"></p>
+
+<script type="text/javascript">
+function myFunction(val) {
+	var host = location.origin;
+	var protocol = location.protocol;
+	var mode = '';
+	var patt = document.getElementById("pattern").value;
+	var n 	 = document.getElementById("DataLength").value;
+	var type = document.getElementById("dataType").value;
+	var postURL	='';
+	var dataPatt= new Uint8Array(n);
+	
+	if ( protocol=="http:" )
+	{
+		mode = "Unsecure";
+	}else
+	{
+		mode = "Secure";
+	}
+	
+	var len = n;
+	if ( len>16384 )
+	{
+		len = 16384;
+	}
+	
+	if (patt=='0' && type=='b')
+	{
+		for (var i=0; i<len; i++){
+			dataPatt[i] = 255-(i%256);
+		}
+		document.getElementById("demo").innerHTML = "Decreasing binary pattern " + n + " byte(s) is uploaded in " + mode + " mode!";
+	
+	}else if (patt=='0' &&	type=='t'){
+		for (var i=0; i<len; i++){
+			dataPatt[i] = 111 - (i%64)
+		}
+		document.getElementById("demo").innerHTML = "Decreasing text pattern " + n + " byte(s) is uploaded in " + mode + " mode!";
+	
+	}else if (patt=='1' && type=='b'){
+		for (var i=0; i<len; i++){
+			dataPatt[i] = i%256;
+		}
+		document.getElementById("demo").innerHTML = "Increasing binary pattern " + n + " byte(s) is uploaded in " + mode + " mode!";
+	
+	}else
+	{
+		for (var i=0; i<len; i++){
+			dataPatt[i] = (i%64) + 48;
+		}
+		document.getElementById("demo").innerHTML = "Increasing text pattern " + n + " byte(s) is uploaded in " + mode + " mode!";
+	}
+	
+	postURL = host + "/upload/" + type + patt + "/" + n;
+	
+	fetch(postURL, {
+		method: 'POST',
+		body: dataPatt
+	})	
+}
+
+function limitLen(val){
+	var len 	 = document.getElementById("DataLength").value;
+	textfield = document.getElementById("DataLength");
+	len = parseInt(len)
+	if ( isNaN(len) )
+	{
+		len = "";
+	}else if (len>1000000000)
+	{
+		len = 1000000000;
+	}else
+	{
+		len = len;
+	}
+	textfield.value = len;
+}
+
+</script>
+<noscript>Sorry, your browser does not support JavaScript!</noscript>
+
+</body>
+</html>
