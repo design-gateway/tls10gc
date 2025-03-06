@@ -1,9 +1,9 @@
 # TLS10GC-IP Reference Design
 
-# Overview
+## Overview
 This reference design demonstrates how the TLS10GC-IP offloads encryption and decryption tasks when securely browsing via the Lynx web browser. By making minimal modifications to the OpenSSL library and Lynx application on Ubuntu, users can achieve higher data transfer speeds while maintaining the same user experience.
 
-# System Overview
+## System Overview
 In secure communication, web browsers typically act as clients that communicate with web servers via the HTTPS protocol. **Lynx**, a text-based web browser, serves as a user application that:
 
 - Handles HTTP protocol
@@ -14,15 +14,15 @@ The **OpenSSL** library manages TLS connections by handling the TLS handshake an
 
 For compact edge devices such as the KR260, CPU usage can reach 100% while performing these tasks, affecting the transfer speed of communication. To address this, the design integrates high-performance security and network IP cores, including:
 
-- **TLS10GC-IP**
-- **TOE10GLL-IP**
-- **LL10GEMAC-IP**
+- [**TLS10GC-IP**](https://dgway.com/en/amd/tls-ip.html)
+- [**TOE10GLL-IP**](https://dgway.com/Lowlatency-IP_X_E.html#LLTOE10G)
+- [**LL10GEMAC-IP**](https://dgway.com/Lowlatency-IP_X_E.html#LL10GEMAC)
 
 These IP cores are implemented in the hardware logic of the KR260 to utilize the 10G Ethernet port efficiently.
 
 ![System Overview](./SystemOverview.PNG)
 
-# System Components
+## System Components
 This demo consists of three main components:
 
 ### 1. Hardware
@@ -40,7 +40,7 @@ Modified **Lynx** and **OpenSSL** source code to support interfacing with the ac
 - **Lynx** – Text-based web browser  
 - **OpenSSL** – Cryptographic library for managing TLS connections  
 
-# Getting Started
+## Getting Started
 ### Prerequisites
 - KR260 hardware platform
 - 10G Ethernet connectivity
